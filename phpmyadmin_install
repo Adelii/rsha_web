@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+# phpMyAdmin paigaldus
+#
+#
+# phpMyAdmin olemasolu kontroll
+phpMyAdmin=$(dpkg-query -W -f='${Status}' phpMyAdmin 2>/dev/null | grep -c "installed")
+# tulemus on kas 0 või 1 kui ridade arv on 0 - pole paigaldatud
+# phpMyAdmin paigaldus
+if [ $phpMyAdmin -eq 0 ]; then
+        echo "Paigaldame phpMyAdmini"
+        apt-get install phpmyadmin php-mbstring php-gettext -y;
+# kui ridade arv on 1, siis teenus on paigaldatud
+elif [ $phpMyAdmin -eq 1 ]; then
+        echo "phpMyAdmin on paigaldatud"
+fi
+
+
