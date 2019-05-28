@@ -1,0 +1,19 @@
+#!/bin/bash
+#
+# php paigaldus
+#
+#
+# php olemasolu kontroll
+PHP7=$(dpkg-query -W -f='${Status}' php7.2 2>/dev/null | grep -c "installed")
+# tulemus on kas 0 või 1 kui ridade arv on 0 - pole paigaldatud
+# php7.2 paigaldus
+if [ $PHP7 -eq 0 ]; then
+        echo "Paigaldame PHP7.2"
+        apt-get install php libapache2-mod-php;
+# kui ridade arv on 1, siis teenus on paigaldatud
+elif [ $PHP7 -eq 1 ]; then
+        echo "php on paigaldatud"
+# apache restart
+	sudo systemctl restart apache2
+fi
+
